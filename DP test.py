@@ -36,6 +36,7 @@ model.xbm = Var(initialize=1, bounds=(1,2))
 model.xmb = Var(initialize=1, bounds=(1,2))
 model.xmh = Var(initialize=1, bounds=(1,2))
 
+gygg
 
 #Constraints
 model.constraints = ConstraintList()
