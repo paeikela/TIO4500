@@ -1,4 +1,6 @@
-from pyomo.environ import*
+from pyomo.environ import *
+import pyomo.environ as pyo
+#import numpy as np
 from pyomo import *
 #from coopr.pyomo import Constraint
 
@@ -53,10 +55,25 @@ model.value = Objective(
             sense = maximize)
 
 opt = SolverFactory("gurobi")
+
+#Record results for each battery state
+#for i in range (0,4):
+
 results = opt.solve(model)
+stage_results = [[]]
+stage_results[0]
+optimal_x = [pyo.value(model.xbh),pyo.value(model.xbm),pyo.value(model.xmb),pyo.value(model.xmh)]
+optimal_value= round(results.get('Problem').get('Upper bound').value, 4)
 
 
-print("stop\n\n\n")
-print(round(results.get('Problem').get('Upper bound').value, 4))
-print("stop\n\n\n")
-print(model.pprint())
+#print(results.get(xbh))
+# Write the output
+#results.write(num=1)
+
+
+print(optimal_x)
+
+
+print(optimal_value)
+#print("stop\n\n\n")
+#print(model.pprint())
