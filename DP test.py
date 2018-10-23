@@ -30,6 +30,8 @@ model.D = D
 model.Pm = Pm
 model.a0 =a0
 
+
+
 #Variables
 model.xbh = Var(initialize=1, bounds=(1,2))
 model.xbm = Var(initialize=1, bounds=(1,2))
