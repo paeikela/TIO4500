@@ -1,7 +1,8 @@
-from pyomo.environ import*
+from pyomo.environ import *
+import pyomo.environ as pyo
+import numpy as np
 from pyomo import *
 #from coopr.pyomo import Constraint
-import numpy as np 
 
 #Parameters
 
@@ -54,10 +55,56 @@ model.value = Objective(
             sense = maximize)
 
 opt = SolverFactory("gurobi")
-results = opt.solve(model)
+
+#Record results for each battery state
+#for i in range (0,4):
+
+stage_results = opt.solve(model)
+
+optimal_x = [pyo.value(model.xbh),pyo.value(model.xbm),pyo.value(model.xmb),pyo.value(model.xmh)]
+optimal_value= round(stage_results.get('Problem').get('Upper bound').value, 4)
+
+a = np.array([[optimal_x,optimal_value],0])
+print(a)
+b = np.append(a,a)
+print(b)
+
+#Få ut første element i x-vektor for første state i første steg
+print(b[0])
+#print(b[0][0])
+#print(b[0][1])
+"""
+#La results i en numpy matrise
+state_results = np.array([optimal_x,optimal_value])
+print(state_results)
+state_results2 = np.array([optimal_x,optimal_value])
+#Utvider matrisen med flere results
+results = np.append(state_results,np.array([optimal_x,optimal_value]),axis=0)
+print(results)
+
+#TODO: Legge til funksjonsverdi og optimal vektor for hver state i en 5X1-numpy array
+#TODO: Kjøre forløkke for hver state og legge verdiene i numpy array
+
+a= np.array(state_results,state_results2)
+print(a)
+
+total_results = np.array(([]))
+print(results[0])
+print(results[1])
+print(results[2])
+print(results[3])
+"""
 
 
-print("stop\n\n\n")
-print(round(results.get('Problem').get('Upper bound').value, 4))
-print("stop\n\n\n")
-print(model.pprint())
+#print(results.get(xbh))
+# Write the output
+#results.write(num=1)
+
+
+#print(optimal_x)
+
+
+#print(optimal_value)
+#print("stop\n\n\n")
+#print(model.pprint())
+
