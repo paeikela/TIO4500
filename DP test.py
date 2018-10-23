@@ -1,6 +1,7 @@
 from pyomo.environ import*
 from pyomo import *
 #from coopr.pyomo import Constraint
+import numpy as np 
 
 #Parameters
 
@@ -30,15 +31,12 @@ model.D = D
 model.Pm = Pm
 model.a0 =a0
 
-
-
 #Variables
 model.xbh = Var(initialize=1, bounds=(1,2))
 model.xbm = Var(initialize=1, bounds=(1,2))
 model.xmb = Var(initialize=1, bounds=(1,2))
 model.xmh = Var(initialize=1, bounds=(1,2))
 
-gygg
 
 #Constraints
 model.constraints = ConstraintList()
